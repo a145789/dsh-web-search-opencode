@@ -61,15 +61,34 @@ model (e.g. opencode-go/deepseek-v4.1-flash)
 ## Install
 
 ```bash
-# from this directory
-dsh plugin --profile web add /home/clencat/dsh-web-search-opencode
+dsh plugin --profile web add github:a145789/dsh-web-search-opencode
+```
 
-# then restart the harness; a running instance loads its plugin tree at boot
+Pin a commit for a reproducible install: append `#<commit-sha>`.
+
+The package ships its runtime files (`index.js`, `lib/`) already committed, and
+declares no `prepare`/`postinstall` script, so the git install needs no build step
+and never trips pnpm's `allowBuilds` gate.
+
+After installing, restart the harness — a running instance loads its plugin tree
+at boot:
+
+```bash
 dsh web
 ```
 
-Or install it through the plugin manager with the absolute package directory as
-the target. The bundle patch does two things:
+Uninstall with `dsh plugin --profile web remove dsh-web-search-opencode`.
+
+### For development
+
+To iterate on a checkout instead, install the local directory (pnpm links it, so
+edits apply on reload):
+
+```bash
+dsh plugin --profile web add /path/to/dsh-web-search-opencode
+```
+
+The bundle patch does two things:
 
 1. inserts the `web-search-opencode` row;
 2. restates the `web` row with `searchProvider: opencode`.

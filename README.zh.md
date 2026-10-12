@@ -50,14 +50,31 @@ JSON-RPC `tools/call`。`opencode.ai/zen/go/v1` 根本没有搜索端点，网�
 ## 安装
 
 ```bash
-# 在本目录执行
-dsh plugin --profile web add /home/clencat/dsh-web-search-opencode
+dsh plugin --profile web add github:a145789/dsh-web-search-opencode
+```
 
-# 然后重启 harness；运行中的实例只在启动时加载插件树
+要可复现安装，在末尾追加 `#<commit-sha>` 锁定提交。
+
+包内已提交运行所需文件（`index.js`、`lib/`），且没有声明 `prepare`/`postinstall`
+脚本，所以 git 安装**无需构建步骤**，也不会被 pnpm 的 `allowBuilds` 白名单拦住。
+
+装完重启 harness —— 运行中的实例只在启动时加载插件树：
+
+```bash
 dsh web
 ```
 
-也可以用插件管理器安装，target 传包目录的绝对路径。bundle 补丁做两件事：
+卸载：`dsh plugin --profile web remove dsh-web-search-opencode`。
+
+### 开发调试用
+
+想直接改本地源码迭代，就装本地目录（pnpm 用 link，改动即时生效）：
+
+```bash
+dsh plugin --profile web add /path/to/dsh-web-search-opencode
+```
+
+bundle 补丁做两件事：
 
 1. 插入 `web-search-opencode` 行；
 2. 用 `searchProvider: opencode` 重述 `web` 行。
