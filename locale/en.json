@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "OpenCode Web Search",
+    "description": "Keyless Exa / Parallel MCP search provider for the ctx.web seam, so web_search works on any model route (including opencode-go) without a DeepSeek official API key. Fails over between the two backends when one is rate limited."
+  }
+}

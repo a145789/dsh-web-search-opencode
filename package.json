@@ -1,0 +1,60 @@
+{
+  "name": "dsh-web-search-opencode",
+  "version": "0.1.0",
+  "description": "OpenCode-style web search for the DeepSeek Harness ctx.web seam: a keyless Exa / Parallel MCP search provider with automatic failover, so web_search works on any model route (including opencode-go) without a DeepSeek official API key.",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "dsh-bundle",
+    "cordis",
+    "web-search",
+    "opencode",
+    "exa",
+    "parallel",
+    "mcp"
+  ],
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./provider": "./lib/provider.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "jsconfig.json",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh": ">=0.2.0 <0.3.0"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\"",
+    "smoke": "node scripts/smoke.mjs",
+    "typecheck": "tsc -p jsconfig.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "license": "MIT"
+}

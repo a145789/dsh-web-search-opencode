@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "OpenCode 网页搜索",
+    "description": "为 ctx.web 搜索能力缝提供免 key 的 Exa / Parallel MCP 搜索后端，让 opencode-go 等任意模型线路无需 DeepSeek 官方 API key 即可使用 web_search；单一后端被限流时自动切换到另一个。"
+  }
+}

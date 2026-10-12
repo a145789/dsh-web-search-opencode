@@ -1,0 +1,26 @@
+# dsh-web-search-opencode — bundle patch layer.
+#
+# Two edits, applied after the base bundle layer:
+#
+# 1. `insert` mounts this bundle's provider row. `name` MUST be the package's
+#    resolvable module specifier: the cordis loader imports exactly this string
+#    from the profile directory, where this package is installed.
+# 2. The `web` row is restated with `searchProvider: opencode` so the seam picks
+#    this provider deterministically. Without the pin, a profile that also has
+#    the shipped `web-search-deepseek` row usable (i.e. a real DEEPSEEK_API_KEY)
+#    would register two usable search providers and every search would fail with
+#    WEB_PROVIDER_AMBIGUOUS. `fetchProvider: http` keeps the shipped fetch
+#    backend selected.
+#
+# Per-user overrides belong in the profile's own cordis.patch.yml (Settings →
+# Plugins), which is applied after every bundle layer.
+- insert:
+    - id: web-search-opencode
+      name: "dsh-web-search-opencode"
+      config:
+        provider: auto
+
+- id: web
+  config:
+    searchProvider: opencode
+    fetchProvider: http
